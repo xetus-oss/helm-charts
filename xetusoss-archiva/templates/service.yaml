@@ -1,0 +1,19 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ template "xetusoss-archiva.fullname" . }}
+  labels:
+    app: {{ template "xetusoss-archiva.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  selector:
+    app: {{ template "xetusoss-archiva.name" . }}
+    release: {{ .Release.Name }}
+  type: {{ .Values.service.type }}
+  ports:
+    - name: http
+      protocol: TCP
+      targetPort: http
+      port: 80

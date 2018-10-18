@@ -1,0 +1,12 @@
+userDb:
+  type: mysql
+  user: archiva
+  password: archiva
+  host: archiva-db-mysql
+  name: archiva
+
+service:
+  type: NodePort
+
+persistence:
+  enabled: false

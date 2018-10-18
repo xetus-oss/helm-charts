@@ -1,0 +1,12 @@
+apiVersion: v1
+name: xetusoss-archiva
+home: https://github.com/xetus-oss/docker-archiva/
+version: 0.1.0
+appVersion: 2.2.3
+description: Apache Archiva is a build artifact repository, xetusoss/archiva is an easy-to-deploy Archiva container.
+keywords:
+- archiva
+- xetusoss
+sources:
+- https://github.com/apache/archiva 
+- https://github.com/xetus-oss/docker-archiva/

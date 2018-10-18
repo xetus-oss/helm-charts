@@ -1,0 +1,10 @@
+service:
+  type: NodePort
+
+persistence:
+  enabled: false
+
+advanced:
+  jvmExtraOpts:
+    - "-Dvalue.one=test"
+    - "-Dvalue.two=test"

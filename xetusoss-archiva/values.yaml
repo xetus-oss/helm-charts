@@ -1,0 +1,84 @@
+image:
+  repo: xetusoss/archiva
+  tag: v2
+  pullPolicy: Always
+#
+# SMTP values for archiva
+#
+smtp:
+  host:
+  port: 25
+
+#
+# HTTP Proxy configuration
+# 
+proxy:
+  enabled: false
+  hostname: 
+  proto: https
+  pathPrefix:
+  customPort:
+
+#
+# User database configuration
+#
+userDb:
+  type: derby
+  user: archiva
+  password:
+  host:
+  port: 3306
+  name: archiva
+
+#
+# Resource Configuration
+#
+resourceConf:
+  jvmMaxMem: 512
+  cpuLimit: 2
+  cpuRequest: 500m
+
+#
+# Advanced configuration
+#
+advanced:
+  jvmExtraOpts: []
+
+service:
+  type: ClusterIP
+
+ingress:
+  enabled: false
+  annotations: {}
+  tls:
+    enabled: false
+    #
+    # Specify a secret name 
+    #
+    secretName:
+
+persistence:
+  enabled: true
+  #
+  # Use the existingClaim to specify 
+  # a specific volume to claim
+  #
+  existingClaim:
+  #
+  # *OR*
+  #
+  # Specify the following values to capture a new claim
+  # from a storageprovider
+  storageClass:
+  requestSize: 20Gi
+
+
+#
+# (OPTIONAL) tolerations
+#
+#tolerations:
+
+#
+# (OPTIONAL) nodeSelector
+# 
+#nodeSelector:

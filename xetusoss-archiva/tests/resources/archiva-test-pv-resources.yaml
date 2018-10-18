@@ -1,0 +1,34 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: archiva-pv
+  labels:
+    name: archiva-pv
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  hostPath:
+    type: DirectoryOrCreate
+    path: /tmp/archiva
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: archiva-pv-claim
+  labels:
+    name: archiva-pv-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: manual
+  selector:
+    matchLabels:
+      name: archiva-pv

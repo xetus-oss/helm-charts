@@ -1,0 +1,136 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "xetusoss-archiva.fullname" . }}
+  labels:
+    app: {{ template "xetusoss-archiva.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{ template "xetusoss-archiva.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      initContainers:
+        {{- if .Values.persistence.enabled }}
+        - name: init-ownership
+          image: busybox
+          command:
+            - sh
+            - -c
+            - if [ $(ls -ldn /archiva-data | awk '{ print $3 }') != 1000 ]; then chown -R 1000:1000 /archiva-data; fi 
+          volumeMounts:
+            - mountPath: /archiva-data
+              name: archiva-data
+        {{- end }}
+        {{- if eq .Values.userDb.type "mysql" }}
+        - name: init-db-available
+          image: mysql:8
+          env:
+            - name: DB_USER
+              value: {{ .Values.userDb.user }}
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "xetusoss-archiva.fullname" . }}
+                  key: db-password
+            - name: DB_HOST
+              value: {{ .Values.userDb.host }}
+            - name: DB_PORT
+              value: {{ .Values.userDb.port | quote }}
+            - name: DB_NAME
+              value: {{ .Values.userDb.name }}
+          command:
+            - sh
+            - -c
+            - while ! mysql --connect_timeout=1 -u $DB_USER --password=$DB_PASSWORD -h $DB_HOST -P $DB_PORT -e "SELECT 1" $DB_NAME; do sleep 1; done
+        {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repo }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: SMTP_HOST
+              value: {{ default "" .Values.smtp.host }}
+            - name: SMTP_PORT
+              value: {{ .Values.smtp.port | quote }}
+              {{- if .Values.proxy.enabled }}
+            - name: PROXY_BASE_URL
+              value: {{ template "xetusoss-archiva.proxyBaseUrl" . }}
+              {{- end }}
+            {{- if eq .Values.userDb.type "mysql" }}
+            - name: DB_TYPE
+              value: {{ .Values.userDb.type }}
+            - name: DB_USER
+              value: {{ .Values.userDb.user }}
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "xetusoss-archiva.fullname" . }}
+                  key: db-password
+            - name: DB_HOST
+              value: {{ .Values.userDb.host }}
+            - name: DB_PORT
+              value: {{ .Values.userDb.port | quote }}
+            - name: DB_NAME
+              value: {{ .Values.userDb.name }}
+            {{- end }}
+            - name: JVM_MAX_MEM
+              value: {{ .Values.resourceConf.jvmMaxMem | quote }}
+            {{- if .Values.advanced.jvmExtraOpts }}
+            - name: JVM_EXTRA_OPTS
+              value: {{ include "xetusoss-archiva.jvmExtraOptsStr" . | quote }}
+            {{- end }}
+          {{- if .Values.persistence.enabled }}
+          volumeMounts:
+            - mountPath: /archiva-data
+              name: archiva-data
+          {{- end }}
+          readinessProbe:
+            exec:
+              command:
+                - /healthcheck.sh
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            exec:
+              command:
+                - /healthcheck.sh
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 27
+          resources:
+            limits:
+              cpu: {{ .Values.resourceConf.cpuLimit }}
+              memory: {{ add .Values.resourceConf.jvmMaxMem 50 }}Mi
+            requests:
+              cpu: {{ .Values.resourceConf.cpuRequest }}
+              memory: {{ add .Values.resourceConf.jvmMaxMem 50 }}Mi 
+
+      {{- if .Values.tolerations }}
+      tolerations:
+        {{- "\n"}}{{ toYaml .Values.tolerations | indent 8 }}
+      {{- end }}
+
+      {{- if .Values.nodeSelector }}
+      nodeSelector:
+        {{- "\n"}}{{ toYaml .Values.nodeSelector | indent 8 }}
+      {{- end }}
+
+      {{- if .Values.persistence.enabled }}
+      volumes:
+        - name: archiva-data
+          persistentVolumeClaim:
+            {{- if .Values.persistence.existingClaim }}
+            claimName: {{ .Values.persistence.existingClaim }}
+            {{- else }}
+            claimName: {{ template "xetusoss-archiva.fullname" . }}
+            {{- end }}
+      {{- end }}

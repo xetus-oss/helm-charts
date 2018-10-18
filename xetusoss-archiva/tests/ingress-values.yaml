@@ -1,0 +1,14 @@
+persistence:
+  enabled: false
+
+proxy:
+  enabled: true
+  proto: https
+  hostname: archiva.test
+  customPort: 2443
+
+ingress:
+  enabled: true
+  tls:
+    enabled: true
+    secretName: archiva-test-tls-secret

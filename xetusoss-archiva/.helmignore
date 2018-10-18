@@ -1,0 +1,5 @@
+.git
+tests
+CHANGELOG.md
+README.md
+Makefile

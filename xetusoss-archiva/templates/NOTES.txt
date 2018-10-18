@@ -1,0 +1,25 @@
+{{- if (not .Values.smtp.host) -}}
+!! Warning: smtp.host is not set !!
+  Archiva will not be able to send emails
+
+{{ end -}}
+Accessing Archiva:
+{{- if .Values.proxy.enabled }}
+   Use the proxy url {{ template "xetusoss-archiva.proxyBaseUrl" . }}
+{{- end }}
+{{- $sType := .Values.service.type -}}
+{{- if (eq $sType "NodePort") }}
+   Use the command below to find node addresses you can use.
+
+sh -c "$(cat << EOM
+   NODEPORT=$(kubectl -n {{ .Release.Namespace }} get service/{{ template "xetusoss-archiva.fullname" .}}\
+      -o=jsonpath='{ .spec.ports[0].nodePort }')
+   NODE_IPS=$(kubectl -n {{ .Release.Namespace }} get nodes \
+      -o=jsonpath='{range .items[*]}{ .status.addresses[?(@.type=="InternalIP")].address }{"\n"}{end}')
+   for ip in $NODE_IPS; do echo "http://${ip}:${NODEPORT}/"; done
+EOM)"
+{{- end }}
+{{- if (eq $sType "LoadBalancer") }}
+   Use the load balancer address. Find the address with the following command
+   kubectl get service/{{ template "xetusoss-archiva.fullname" }}
+{{- end -}}
