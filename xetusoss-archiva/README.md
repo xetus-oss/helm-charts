@@ -47,7 +47,7 @@ This directory contains the offical Kubernetes chart to deploy [xetusoss/archiva
 
 To setup a quick release for testing, without persistent volume support.
 
-1. Add the xetusoss helm repository. See the [README](../README.md)
+1. Add the xetusoss helm repository. See the [README](../README.md).
 2. Run the following command.
     ```
 helm install --set service.type=NodePort\
