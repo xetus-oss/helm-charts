@@ -3,7 +3,7 @@
 Xetus maintained open-source helm charts. To add this repository, use
 
 ```
-helm repo add xetusoss https://github.com/xetus-oss/helm-charts
+helm repo add xetusoss https://xetus-oss.github.io/helm-charts/
 ```
 
 ---
