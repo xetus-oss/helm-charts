@@ -2,7 +2,7 @@
 
 This folder contains a series of manually-ran scenario tests used to ensure this chart works as expected and a Makefile which should make running them against a test cluster.
 
-## Prerequisits
+## Prerequisites
 
 You will need `make`, `helm`, and `kubectl` installed and `kubectl` will need to be configured to use to the kubernetes cluster to test with.
 

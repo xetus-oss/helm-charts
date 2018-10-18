@@ -2,7 +2,7 @@
 
 This directory contains the offical Kubernetes chart to deploy [xetusoss/archiva](https://github.com/xetus-oss/docker-archiva) into Kubernetes
 
-## Prerequisites Details
+## Prerequisite Details
 
 * A Kubernetes cluster `1.6+` (Tested with `1.10+`)
 * PV support in the Kuberentes cluster (if persistence is used)
