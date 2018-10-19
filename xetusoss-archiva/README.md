@@ -55,6 +55,6 @@ helm install --set service.type=NodePort\
     --set persistence.enabled=false\
     --namespace archiva-test\
     --name archiva\
-    xetusoss-archiva
+    xetusoss/xetusoss-archiva
 
 ```
