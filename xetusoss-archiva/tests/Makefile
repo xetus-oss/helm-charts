@@ -34,6 +34,7 @@ clean-basic-test:
 
 deploy-ingress-test:
 	kubectl apply \
+		--namespace $(TEST_NAMESPACE)\
 		-f resources/archiva-test-tls-secret.yaml
 
 	helm install \
@@ -44,7 +45,7 @@ deploy-ingress-test:
 		../
 
 clean-ingress-test:
-	-kubectl delete secret/archiva-test-tls-secret
+	-kubectl delete secret/archiva-test-tls-secret --namespace $(TEST_NAMESPACE)
 	-helm delete --purge ingress-test
 
 deploy-mysql-test:
