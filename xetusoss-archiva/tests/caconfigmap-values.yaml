@@ -1,0 +1,8 @@
+service:
+  type: NodePort
+
+persistence:
+  enabled: false
+
+advanced:
+  caCertsConfigMap: archiva-test-cacerts

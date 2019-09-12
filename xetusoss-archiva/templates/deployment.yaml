@@ -1,3 +1,13 @@
+{{/*
+Capture wether or not the volumes block is needed
+*/}}
+{{- if .Values.persistence.enabled -}}
+  {{- $ignore := set . "archivaIncludeVolumesBlock" true -}}
+{{- else if (.Values.advanced.caCertsConfigMap) -}}
+  {{- $ignore := set . "archivaIncludeVolumesBlock" true -}}
+{{- else -}}
+  {{- $ignore := set . "archivaIncludeVolumesBlock" false -}}
+{{- end -}}
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -88,10 +98,16 @@ spec:
             - name: JVM_EXTRA_OPTS
               value: {{ include "xetusoss-archiva.jvmExtraOptsStr" . | quote }}
             {{- end }}
-          {{- if .Values.persistence.enabled }}
+          {{- if .archivaIncludeVolumesBlock }}
           volumeMounts:
+            {{- if .Values.persistence.enabled }}
             - mountPath: /archiva-data
               name: archiva-data
+            {{- end }}
+            {{- if (.Values.advanced.caCertsConfigMap) }}
+            - mountPath: /certs
+              name: certs
+            {{- end}}
           {{- end }}
           readinessProbe:
             exec:
@@ -124,8 +140,9 @@ spec:
         {{- "\n"}}{{ toYaml .Values.nodeSelector | indent 8 }}
       {{- end }}
 
-      {{- if .Values.persistence.enabled }}
+      {{- if .archivaIncludeVolumesBlock }}
       volumes:
+        {{- if .Values.persistence.enabled }}
         - name: archiva-data
           persistentVolumeClaim:
             {{- if .Values.persistence.existingClaim }}
@@ -133,4 +150,11 @@ spec:
             {{- else }}
             claimName: {{ template "xetusoss-archiva.fullname" . }}
             {{- end }}
+          {{- end}}
+        {{- if (.Values.advanced.caCertsConfigMap) }}
+        - name: certs
+          configMap:
+            name: {{ .Values.advanced.caCertsConfigMap }}
+        {{- end}}
       {{- end }}
+{{ $ignore := unset . "archivaIncludeVolumesBlock" -}}

@@ -20,8 +20,10 @@ lint:
 	helm lint -f ingress-values.yaml ../
 	helm lint -f pv-values.yaml ../
 	helm lint -f ingress-values.yaml ../
+	helm lint -f caconfigmap-values.yaml ../
 
 deploy-basic-test:
+	kubectl create namespace $(TEST_NAMESPACE)
 	helm install \
 		--namespace $(TEST_NAMESPACE)\
 		--name basic-test\
@@ -31,8 +33,10 @@ deploy-basic-test:
 
 clean-basic-test:
 	-helm delete --purge basic-test
+	-kubectl delete namespace $(TEST_NAMESPACE)
 
 deploy-ingress-test:
+	kubectl create namespace $(TEST_NAMESPACE)
 	kubectl apply \
 		--namespace $(TEST_NAMESPACE)\
 		-f resources/archiva-test-tls-secret.yaml
@@ -47,8 +51,10 @@ deploy-ingress-test:
 clean-ingress-test:
 	-kubectl delete secret/archiva-test-tls-secret --namespace $(TEST_NAMESPACE)
 	-helm delete --purge ingress-test
+	-kubectl delete namespace $(TEST_NAMESPACE)
 
 deploy-mysql-test:
+	kubectl create namespace $(TEST_NAMESPACE)
 	helm repo update
 	helm install \
 		--namespace $(TEST_NAMESPACE)\
@@ -67,8 +73,11 @@ deploy-mysql-test:
 clean-mysql-test:
 	-helm delete --purge mysql-test
 	-helm delete --purge archiva-db
+	-kubectl delete namespace $(TEST_NAMESPACE)
 
 deploy-pv-test:
+	kubectl create namespace $(TEST_NAMESPACE)
+
 	kubectl apply -n $(TEST_NAMESPACE)\
 		-f resources/archiva-test-pv-resources.yaml
 
@@ -83,3 +92,22 @@ clean-pv-test:
 	-helm delete --purge pv-test
 	-kubectl -n $(TEST_NAMESPACE) delete pvc/archiva-pv-claim
 	-kubectl delete pv/archiva-pv
+	-kubectl delete namespace $(TEST_NAMESPACE)
+
+deploy-caconfigmap-test:
+	kubectl create namespace $(TEST_NAMESPACE)
+	kubectl apply -n $(TEST_NAMESPACE)\
+		-f resources/archiva-test-ca-configmap.yaml
+
+	helm install \
+		--namespace $(TEST_NAMESPACE)\
+		--name caconfigmap-test\
+		-f caconfigmap-values.yaml\
+		$(IMAGE_ARGS)\
+		../
+
+clean-caconfigmap-test:
+	-helm delete --purge caconfigmap-test
+	-kubectl delete --namespace $(TEST_NAMESPACE)\
+		configmaps/archiva-test-cacerts
+	-kubectl delete namespace $(TEST_NAMESPACE)

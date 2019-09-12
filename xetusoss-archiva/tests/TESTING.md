@@ -70,3 +70,18 @@ helm status pv-test
 # Clean up the test release
 make clean-pv-test
 ```
+
+## CA certs ConfigMap Test
+
+Tests that releases which specify the `advanced.caCertsConfigMapName` deploy correctly.
+
+```
+# Deploy the test release
+make deploy-caconfigmap-test
+
+# Check the release status using
+helm status caconfigmap-test
+
+# Clean up the test release
+make clean-caconfigmap-test
+```

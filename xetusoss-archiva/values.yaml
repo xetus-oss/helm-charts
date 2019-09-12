@@ -42,6 +42,7 @@ resourceConf:
 # Advanced configuration
 #
 advanced:
+  caCertsConfigMap:
   jvmExtraOpts: []
 
 service:
