@@ -20,7 +20,27 @@ lint:
 	helm lint -f ingress-values.yaml ../
 	helm lint -f pv-values.yaml ../
 	helm lint -f ingress-values.yaml ../
-	helm lint -f caconfigmap-values.yaml ../
+	helm lint -f casecret-values.yaml ../
+	helm lint -f old-advanced-jvmExtraOpts-values.yaml ../
+	helm lint -f archiva-jvmExtraOpts-values.yaml ../
+
+test-old-advanced-jvmExtraOpts-values:
+	helm install ../ \
+		--name=ignore \
+		--namespace=$(TEST_NAMESPACE) \
+		--dry-run \
+		--debug \
+		-f old-advanced-jvmExtraOpts-values.yaml | \
+		grep 'JVM_EXTRA_OPT_FROM_ADVANCED_KEY' > /dev/null
+
+test-old-advanced-jvmExtraOpts-values:
+	helm install ../ \
+		--name=ignore \
+		--namespace=$(TEST_NAMESPACE) \
+		--dry-run \
+		--debug \
+		-f archiva-jvmExtraOpts-values.yaml | \
+		grep 'JVM_EXTRA_OPT_FROM_ARCHIVA_KEY' > /dev/null
 
 deploy-basic-test:
 	kubectl create namespace $(TEST_NAMESPACE)
@@ -94,20 +114,20 @@ clean-pv-test:
 	-kubectl delete pv/archiva-pv
 	-kubectl delete namespace $(TEST_NAMESPACE)
 
-deploy-caconfigmap-test:
+deploy-casecret-test:
 	kubectl create namespace $(TEST_NAMESPACE)
 	kubectl apply -n $(TEST_NAMESPACE)\
-		-f resources/archiva-test-ca-configmap.yaml
+		-f resources/archiva-test-ca-secret.yaml
 
 	helm install \
 		--namespace $(TEST_NAMESPACE)\
-		--name caconfigmap-test\
-		-f caconfigmap-values.yaml\
+		--name casecret-test\
+		-f casecret-values.yaml\
 		$(IMAGE_ARGS)\
 		../
 
-clean-caconfigmap-test:
-	-helm delete --purge caconfigmap-test
+clean-casecret-test:
+	-helm delete --purge casecret-test
 	-kubectl delete --namespace $(TEST_NAMESPACE)\
-		configmaps/archiva-test-cacerts
+		secrets/archiva-test-cacerts
 	-kubectl delete namespace $(TEST_NAMESPACE)

@@ -31,13 +31,13 @@ This directory contains the offical Kubernetes chart to deploy [xetusoss/archiva
 | `resourceConf.jvmMaxMem`        | JVM memory for Archiva, in megabytes. The `limit` and `request` `memory` will be set to `jvmMaxMem` + 50         | `512`              |
 | `resourceConf.cpuLimit`         | CPU limit for Archiva                                                                                            | `2`                |
 | `resourceConf.cpuRequest`       | CPU request for Archiva                                                                                          | `500m`             |
-| `advanced.jvmExtraOpts`         | Extra jvm arguments for Archiva                                                                                  | `[]`               |
-| `advanced.caCertsConfigMap`     | ConfigMap to mount under `/certs`. See [xetusoss/archiva](https://github.com/xetus-oss/docker-archiva)           | `nil`              |
+| `archiva.jvmExtraOpts`          | Extra jvm arguments for Archiva                                                                                  | `[]`               |
+| `archiva.caCertsSecret`         | Secret to mount under `/certs`. See [xetusoss/archiva](https://github.com/xetus-oss/docker-archiva)              | `nil`              |
 | `service.type`                  | `Service` resource type, `ClusterIP`, `NodePort`, or `LoadBalancer`                                              | `ClusterIP`        |
 | `ingress.enabled`               | Enable ingress support                                                                                           | `false`            |
 | `ingress.annotations`           | Optional ingress annotation values                                                                               | `{}`               |
 | `ingress.tls.enabled`           | Enable tls support within the ingress resource                                                                   | `false`            |
-| `ingress.tls.secretName`        | The secret which contains the TLS keypair for the ingress. Required when `ingress.tls.enable` = `true`           | `nil`              |
+| `ingress.tls.secret`            | The secret which contains the TLS keypair for the ingress. Required when `ingress.tls.enable` = `true`           | `nil`              |
 | `persistence.enabled`           | Enable persistent storage                                                                                        | `true`             |
 | `persistence.existingClaim`     | Specify an existing claim for a `PersitentVolume`                                                                | `nil`              |
 | `persistence.storageClass`      | `StorageClass` type for the `PersistentVolume`. Ignored if `persistence.existingClaim` exists                    | `nil`              |

@@ -23,7 +23,7 @@ spec:
             servicePort: http
   {{- if .Values.ingress.tls.enabled }}
   tls:
-    - secretName: {{ .Values.ingress.tls.secretName }}
+    - secretName: {{ template "xetusoss-archiva.tlsSecret" . }}
       hosts:
         - {{ .Values.proxy.hostname }}
   {{- end }}

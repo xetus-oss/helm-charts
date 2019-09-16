@@ -35,7 +35,7 @@ make deploy-ingress-test
 helm status ingress-test
 
 # Issue the following command, replacing CLUSTER_INGRESS_HTTPS_FROTNEND with the right host or ip.
-curl -k -H'Host: archiva.test:2443' CLUSTER_INGRESS_HTTPS_FROTNEND
+curl -k -H'Host: archiva.test' CLUSTER_INGRESS_HTTPS_FROTNEND
 
 # Clean up the test release
 make clean-ingress-test
@@ -71,17 +71,17 @@ helm status pv-test
 make clean-pv-test
 ```
 
-## CA certs ConfigMap Test
+## CACerts Secret Test
 
-Tests that releases which specify the `advanced.caCertsConfigMapName` deploy correctly.
+Tests that releases which specify the `archiva.caCertsSecret` deploy correctly.
 
 ```
 # Deploy the test release
-make deploy-caconfigmap-test
+make deploy-casecret-test
 
 # Check the release status using
-helm status caconfigmap-test
+helm status casecret-test
 
 # Clean up the test release
-make clean-caconfigmap-test
+make clean-casecret-test
 ```

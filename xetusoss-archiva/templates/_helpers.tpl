@@ -34,7 +34,17 @@ Create the proxy base url from the proxy.* values
 Convert the JVM options array into a string
 */}}
 {{- define "xetusoss-archiva.jvmExtraOptsStr" -}}
-{{- if (.Values.advanced.jvmExtraOpts) -}}
-{{- range .Values.advanced.jvmExtraOpts }} {{ . }}{{ end -}}
+{{- if (.) -}}
+{{- range . }} {{ . }}{{ end -}}
 {{- end -}}
+{{- end -}}
+
+{{/*
+Resolves the tls secret name from the global context, supporting
+the previous key name.
+
+Keep in place until v0.2.0 for backwards compatbility.
+*/}}
+{{- define "xetusoss-archiva.tlsSecret" -}}
+{{ default .Values.ingress.tls.secretName .Values.ingress.tls.secret }}
 {{- end -}}

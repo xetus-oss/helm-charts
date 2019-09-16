@@ -1,0 +1,7 @@
+persistence:
+  enabled: false
+
+# Ensure that the old style of specifying jvmExtraOpts works
+advanced:
+  jvmExtraOpts:
+    - "JVM_EXTRA_OPT_FROM_ADVANCED_KEY"

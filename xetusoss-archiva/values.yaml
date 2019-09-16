@@ -39,10 +39,10 @@ resourceConf:
   cpuRequest: 500m
 
 #
-# Advanced configuration
+# Archiva configuration
 #
-advanced:
-  caCertsConfigMap:
+archiva:
+  caCertsSecret:
   jvmExtraOpts: []
 
 service:
@@ -56,7 +56,7 @@ ingress:
     #
     # Specify a secret name 
     #
-    secretName:
+    secret:
 
 persistence:
   enabled: true
