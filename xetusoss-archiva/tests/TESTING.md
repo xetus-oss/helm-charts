@@ -56,19 +56,34 @@ helm status mysql-test
 make clean-mysql-test
 ```
 
-## PV Test
+## Existing PVC Test
 
 Tests that an existing PVC can be used, when configured.
 
 ```
 # Deploy the test release
-make deploy-pv-test
+make deploy-existing-pvc-test
 
 # Check the release status using
-helm status pv-test
+helm status existing-pvc-test
 
 # Clean up the test release
-make clean-pv-test
+make clean-existing-pvc-test
+```
+
+## Provisioner created PVC test
+
+Tests that an existing PVC can be used, when configured.
+
+```
+# Deploy the test release
+make deploy-provisoner-pv-test
+
+# Check the release status using
+helm status provisoner-pv-test
+
+# Clean up the test release
+make clean-provisoner-pv-test
 ```
 
 ## CACerts Secret Test
@@ -80,7 +95,7 @@ Tests that releases which specify the `archiva.caCertsSecret` deploy correctly.
 make deploy-casecret-test
 
 # Check the release status using
-helm status casecret-test
+heml status casecret-test
 
 # Clean up the test release
 make clean-casecret-test

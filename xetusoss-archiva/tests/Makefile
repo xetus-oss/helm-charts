@@ -33,7 +33,7 @@ test-old-advanced-jvmExtraOpts-values:
 		-f old-advanced-jvmExtraOpts-values.yaml | \
 		grep 'JVM_EXTRA_OPT_FROM_ADVANCED_KEY' > /dev/null
 
-test-old-advanced-jvmExtraOpts-values:
+test-archiva-jvmExtraOpts-values:
 	helm install ../ \
 		--name=ignore \
 		--namespace=$(TEST_NAMESPACE) \
@@ -95,7 +95,7 @@ clean-mysql-test:
 	-helm delete --purge archiva-db
 	-kubectl delete namespace $(TEST_NAMESPACE)
 
-deploy-pv-test:
+deploy-existing-pvc-test:
 	kubectl create namespace $(TEST_NAMESPACE)
 
 	kubectl apply -n $(TEST_NAMESPACE)\
@@ -103,15 +103,32 @@ deploy-pv-test:
 
 	helm install \
 		--namespace $(TEST_NAMESPACE)\
-		--name pv-test\
-		-f pv-values.yaml\
+		--name existing-pvc-test\
+		-f existing-pvc-values.yaml\
 		$(IMAGE_ARGS)\
 		../
 
-clean-pv-test:
-	-helm delete --purge pv-test
+clean-existing-pvc-test:
+	-helm delete --purge existing-pvc-test
 	-kubectl -n $(TEST_NAMESPACE) delete pvc/archiva-pv-claim
 	-kubectl delete pv/archiva-pv
+	-kubectl delete namespace $(TEST_NAMESPACE)
+
+deploy-provisoner-pv-test:
+	kubectl create namespace $(TEST_NAMESPACE)
+
+	kubectl apply -n $(TEST_NAMESPACE)\
+		-f resources/archiva-test-pv-resources.yaml
+
+	helm install \
+		--namespace $(TEST_NAMESPACE)\
+		--name provisoner-pv-test\
+		-f provisoner-pv-values.yaml\
+		$(IMAGE_ARGS)\
+		../
+
+clean-provisoner-pv-test:
+	-helm delete --purge provisoner-pv-test
 	-kubectl delete namespace $(TEST_NAMESPACE)
 
 deploy-casecret-test:
