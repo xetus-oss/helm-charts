@@ -10,7 +10,7 @@ metadata:
     heritage: {{ .Release.Service }}
   annotations:
     {{- range $key, $value := .Values.ingress.annotations }}
-      {{ $key }}: {{ $value | quote }}
+      {{ $key | quote }}: {{ $value | quote }}
     {{- end }}
 spec:
   rules:
