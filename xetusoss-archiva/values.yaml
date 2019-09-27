@@ -34,9 +34,9 @@ userDb:
 # Resource Configuration
 #
 resourceConf:
-  jvmMaxMem: 512
+  jvmMaxMem: 768
   cpuLimit: 2
-  cpuRequest: 500m
+  cpuRequest: 200m
 
 #
 # Archiva configuration
