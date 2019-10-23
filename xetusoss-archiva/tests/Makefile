@@ -18,7 +18,7 @@ lint:
 	helm lint ../
 	helm lint -f basic-values.yaml ../
 	helm lint -f ingress-values.yaml ../
-	helm lint -f pv-values.yaml ../
+	helm lint -f provisoner-pv-values.yaml ../
 	helm lint -f ingress-values.yaml ../
 	helm lint -f casecret-values.yaml ../
 	helm lint -f old-advanced-jvmExtraOpts-values.yaml ../
