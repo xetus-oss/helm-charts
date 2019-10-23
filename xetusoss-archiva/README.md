@@ -2,7 +2,11 @@
 
 This directory contains the offical Kubernetes chart to deploy [xetusoss/archiva](https://github.com/xetus-oss/docker-archiva) into Kubernetes
 
-## Prerequisite Details
+__Current Version__: `v0.1.3` 
+
+> See the [Change Log](CHANGELOG.md) if upgrading
+
+## Prerequisites
 
 * A Kubernetes cluster `1.6+` (Tested with `1.11+`)
 * PV support in the Kuberentes cluster (if persistence is used)
@@ -28,7 +32,7 @@ This directory contains the offical Kubernetes chart to deploy [xetusoss/archiva
 | `userDb.host`                   | User database host, needed when `userdb.type=mysql`                                                              | `nil`              |
 | `userDb.port`                   | User database port, needed when `userdb.type=mysql`                                                              | `3306`             |
 | `userDb.name`                   | User database name, needed when `userdb.type=mysql`                                                              | `archiva`          |
-| `resourceConf.jvmMaxMem`        | JVM memory for Archiva, in megabytes. The `limit` and `request` `memory` will be set to `jvmMaxMem` + 50         | `512`              |
+| `resourceConf.jvmMaxMem`        | JVM memory for Archiva, in megabytes. The `limit` and `request` `memory` will be set to `jvmMaxMem` + 50         | `768`              |
 | `resourceConf.cpuLimit`         | CPU limit for Archiva                                                                                            | `2`                |
 | `resourceConf.cpuRequest`       | CPU request for Archiva                                                                                          | `500m`             |
 | `archiva.jvmExtraOpts`          | Extra jvm arguments for Archiva                                                                                  | `[]`               |
