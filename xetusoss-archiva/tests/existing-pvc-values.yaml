@@ -1,0 +1,6 @@
+service:
+  type: NodePort
+
+persistence:
+  enabled: true
+  existingClaim: archiva-pv-claim

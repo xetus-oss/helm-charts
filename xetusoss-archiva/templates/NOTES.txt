@@ -1,8 +1,25 @@
+{{- if .Values.ingress.tls.secretName -}}
+Warning: ingress.tls.secretName has been renamed to ingress.tls.secret. Please
+update your values.
+{{ end -}}
+{{- if .Values.advanced -}}
+Warning: the "advanced" key has been renamed to "archiva". Please update your
+values.
+{{ end -}}
 {{- if (not .Values.smtp.host) -}}
 !! Warning: smtp.host is not set !!
   Archiva will not be able to send emails
 
 {{ end -}}
+{{- if and .Values.persistence.enabled (not .Values.persistence.existingClaim) -}}
+!! Important: The persistent volume claim for this release will not be removed when this release is deleted.
+
+To manually remove the claim after the release is deleted:
+
+   kubectl -n {{ .Release.Namespace }} delete pvc/{{ template "xetusoss-archiva.fullname" . }}
+
+{{ end -}}
+
 Accessing Archiva:
 {{- if .Values.proxy.enabled }}
    Use the proxy url {{ template "xetusoss-archiva.proxyBaseUrl" . }}

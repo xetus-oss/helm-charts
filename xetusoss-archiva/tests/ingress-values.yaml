@@ -11,4 +11,4 @@ ingress:
   enabled: true
   tls:
     enabled: true
-    secretName: archiva-test-tls-secret
+    secret: archiva-test-tls-secret

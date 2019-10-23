@@ -35,7 +35,7 @@ make deploy-ingress-test
 helm status ingress-test
 
 # Issue the following command, replacing CLUSTER_INGRESS_HTTPS_FROTNEND with the right host or ip.
-curl -k -H'Host: archiva.test:2443' CLUSTER_INGRESS_HTTPS_FROTNEND
+curl -k -H'Host: archiva.test' CLUSTER_INGRESS_HTTPS_FROTNEND
 
 # Clean up the test release
 make clean-ingress-test
@@ -56,17 +56,47 @@ helm status mysql-test
 make clean-mysql-test
 ```
 
-## PV Test
+## Existing PVC Test
 
 Tests that an existing PVC can be used, when configured.
 
 ```
 # Deploy the test release
-make deploy-pv-test
+make deploy-existing-pvc-test
 
 # Check the release status using
-helm status pv-test
+helm status existing-pvc-test
 
 # Clean up the test release
-make clean-pv-test
+make clean-existing-pvc-test
+```
+
+## Provisioner created PVC test
+
+Tests that an existing PVC can be used, when configured.
+
+```
+# Deploy the test release
+make deploy-provisoner-pv-test
+
+# Check the release status using
+helm status provisoner-pv-test
+
+# Clean up the test release
+make clean-provisoner-pv-test
+```
+
+## CACerts Secret Test
+
+Tests that releases which specify the `archiva.caCertsSecret` deploy correctly.
+
+```
+# Deploy the test release
+make deploy-casecret-test
+
+# Check the release status using
+heml status casecret-test
+
+# Clean up the test release
+make clean-casecret-test
 ```

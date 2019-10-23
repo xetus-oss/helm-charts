@@ -1,0 +1,6 @@
+persistence:
+  enabled: false
+
+archiva:
+  jvmExtraOpts:
+    - "JVM_EXTRA_OPT_FROM_ARCHIVA_KEY"

@@ -16,7 +16,6 @@ spec:
         release: {{ .Release.Name }}
     spec:
       initContainers:
-        {{- if .Values.persistence.enabled }}
         - name: init-ownership
           image: busybox
           command:
@@ -26,7 +25,6 @@ spec:
           volumeMounts:
             - mountPath: /archiva-data
               name: archiva-data
-        {{- end }}
         {{- if eq .Values.userDb.type "mysql" }}
         - name: init-db-available
           image: mysql:8
@@ -84,15 +82,18 @@ spec:
             {{- end }}
             - name: JVM_MAX_MEM
               value: {{ .Values.resourceConf.jvmMaxMem | quote }}
-            {{- if .Values.advanced.jvmExtraOpts }}
+            {{ $advanced := default (dict) .Values.advanced  }}
+            {{- if default $advanced.jvmExtraOpts .Values.archiva.jvmExtraOpts  }}
             - name: JVM_EXTRA_OPTS
-              value: {{ include "xetusoss-archiva.jvmExtraOptsStr" . | quote }}
+              value: {{ include "xetusoss-archiva.jvmExtraOptsStr" (default  $advanced.jvmExtraOpts .Values.archiva.jvmExtraOpts) | quote }}
             {{- end }}
-          {{- if .Values.persistence.enabled }}
           volumeMounts:
             - mountPath: /archiva-data
               name: archiva-data
-          {{- end }}
+            {{- if (.Values.archiva.caCertsSecret) }}
+            - mountPath: /certs
+              name: certs
+            {{- end}}
           readinessProbe:
             exec:
               command:
@@ -124,13 +125,20 @@ spec:
         {{- "\n"}}{{ toYaml .Values.nodeSelector | indent 8 }}
       {{- end }}
 
-      {{- if .Values.persistence.enabled }}
       volumes:
         - name: archiva-data
+        {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
             {{- if .Values.persistence.existingClaim }}
             claimName: {{ .Values.persistence.existingClaim }}
             {{- else }}
             claimName: {{ template "xetusoss-archiva.fullname" . }}
             {{- end }}
-      {{- end }}
+        {{- else }}
+          emptyDir: {}
+        {{- end }}
+        {{- if (.Values.archiva.caCertsSecret) }}
+        - name: certs
+          secret:
+            secretName: {{ .Values.archiva.caCertsSecret }}
+        {{- end}}

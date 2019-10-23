@@ -1,8 +1,10 @@
-{{- if .Values.persistence.enabled -}}
+{{- if and .Values.persistence.enabled (not .Values.persistence.existingClaim) -}}
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: {{ template "xetusoss-archiva.fullname" . }}
+  annotations:
+    "helm.sh/resource-policy": keep
   labels:
     app: {{ template "xetusoss-archiva.name" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
