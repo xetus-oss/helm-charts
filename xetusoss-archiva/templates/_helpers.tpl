@@ -25,7 +25,7 @@ Create the proxy base url from the proxy.* values
 {{- if .Values.proxy.customPort -}}
   {{- $port := int .Values.proxy.customPort -}}
   {{ printf "%s://%s:%d%s" $proto $host $port $path -}}
-{{ else }}
+{{ else -}}
   {{ printf "%s://%s%s" $proto $host $path -}}
 {{- end -}}
 {{- end -}}
