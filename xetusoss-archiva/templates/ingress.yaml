@@ -1,5 +1,5 @@
 {{- if .Values.ingress.enabled -}}
-apiVersion: extensions/v1beta1
+apiVersion: {{ template "xetusoss-archiva.ingressApiVersion" . }}
 kind: Ingress
 metadata:
   name: {{ template "xetusoss-archiva.fullname" . }}

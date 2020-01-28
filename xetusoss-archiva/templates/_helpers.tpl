@@ -48,3 +48,19 @@ Keep in place until v0.2.0 for backwards compatbility.
 {{- define "xetusoss-archiva.tlsSecret" -}}
 {{ default .Values.ingress.tls.secretName .Values.ingress.tls.secret }}
 {{- end -}}
+
+
+{{/*
+As of v1.14, kubernetes depreciated extensions/v1beta1, and
+ingresses should use networking.k8s.io/v1beta1. In v1.18
+extensions/v1beta1 will stop working.
+
+https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.14.md#no-really-you-must-read-this-before-you-upgrade
+*/}}
+{{- define "xetusoss-archiva.ingressApiVersion" -}}
+{{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
+networking.k8s.io/v1beta1
+{{- else -}}
+extensions/v1beta1
+{{- end -}}
+{{- end -}}
