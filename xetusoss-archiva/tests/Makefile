@@ -55,6 +55,16 @@ clean-basic-test:
 	-helm delete --purge basic-test
 	-kubectl delete namespace $(TEST_NAMESPACE)
 
+test-ingress-values:
+	helm install \
+		--namespace $(TEST_NAMESPACE)\
+		--name ingress-test\
+		--dry-run \
+		--debug \
+		-f ingress-values.yaml\
+		$(IMAGE_ARGS)\
+		../
+
 deploy-ingress-test:
 	kubectl create namespace $(TEST_NAMESPACE)
 	kubectl apply \
