@@ -2,7 +2,7 @@
 
 This directory contains the offical Kubernetes chart to deploy [xetusoss/archiva](https://github.com/xetus-oss/docker-archiva) into Kubernetes
 
-__Current Version__: `v0.1.3` 
+__Current Version__: `v0.1.4` 
 
 > See the [Change Log](CHANGELOG.md) if upgrading
 
