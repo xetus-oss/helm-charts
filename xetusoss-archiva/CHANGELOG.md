@@ -7,7 +7,6 @@ Notable changes in the xetusoss-archiva chart
 * Fixed a bug with the PROXY_BASE_URL support when not including a customPort (see issue #5[https://github.com/xetus-oss/helm-charts/issues/5])
 * Added the support for using the new `networking.k8s.io/v1beta1` API version for ingresses in Kubernetes `v1.14+`.
 
-
 ### v0.1.3
 * Added support for the custom CA certificate loading feature of the docker image. CA certificates can now be specified using `archiva.caCertsSecret`.
 * Fixed an issue where a PVC would be created even if an existing claim was specified.
