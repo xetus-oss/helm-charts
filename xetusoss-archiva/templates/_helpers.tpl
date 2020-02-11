@@ -43,10 +43,24 @@ Convert the JVM options array into a string
 Resolves the tls secret name from the global context, supporting
 the previous key name.
 
-Keep in place until v0.2.0 for backwards compatbility.
+Keep in place until v0.2.0 for backwards compatibility.
 */}}
 {{- define "xetusoss-archiva.tlsSecret" -}}
 {{ default .Values.ingress.tls.secretName .Values.ingress.tls.secret }}
+{{- end -}}
+
+{{/*
+Computes the max memory for the container from depreciated
+.Values.resourceConf.jvmMaxMem value, if specified
+
+Keep in place until v0.2.0 for backwards compatibility.
+*/}}
+{{- define "xetusoss-archiva.memory" -}}
+{{- if .Values.resourceConf.jvmMaxMem -}}
+    {{ add .Values.resourceConf.jvmMaxMem 50 }}
+{{- else -}}
+    {{ .Values.resourceConf.memory }}
+{{- end -}}
 {{- end -}}
 
 
@@ -64,3 +78,4 @@ networking.k8s.io/v1beta1
 extensions/v1beta1
 {{- end -}}
 {{- end -}}
+

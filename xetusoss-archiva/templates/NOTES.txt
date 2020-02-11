@@ -6,6 +6,9 @@ update your values.
 Warning: the "advanced" key has been renamed to "archiva". Please update your
 values.
 {{ end -}}
+{{- if .Values.resourceConf.jvmMaxMem -}}
+Warning: the "resourceConf.jvmMaxMem" key has been depreciated. Use "resourceConf.memory" instead.
+{{ end -}}
 {{- if (not .Values.smtp.host) -}}
 !! Warning: smtp.host is not set !!
   Archiva will not be able to send emails
