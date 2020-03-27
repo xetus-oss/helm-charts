@@ -3,10 +3,10 @@ entries:
   xetusoss-archiva:
   - apiVersion: v1
     appVersion: 2.2.4-1
-    created: "2020-03-27T15:40:50.035408-07:00"
+    created: "2020-03-27T16:19:46.87414-07:00"
     description: Apache Archiva is a build artifact repository, xetusoss/archiva is
       an easy-to-deploy Archiva container.
-    digest: 33f3602dd6ce7fee0d86f61d98f490fd52e9ec32cc31ed14c4f4339736d2a640
+    digest: c00517b7bd8c6d831c66abc473574404cb797cb8a444a754dc0629f934078c3c
     home: https://github.com/xetus-oss/docker-archiva/
     keywords:
     - archiva
@@ -20,7 +20,7 @@ entries:
     version: 0.1.5
   - apiVersion: v1
     appVersion: 2.2.4
-    created: "2020-03-27T15:40:50.033938-07:00"
+    created: "2020-03-27T16:19:46.87349-07:00"
     description: Apache Archiva is a build artifact repository, xetusoss/archiva is
       an easy-to-deploy Archiva container.
     digest: cfd03cb9475a7bc376ece0213ee8a1ddecdd27821e19ecbc5aeec1de4e548fa5
@@ -37,7 +37,7 @@ entries:
     version: 0.1.4
   - apiVersion: v1
     appVersion: 2.2.4
-    created: "2020-03-27T15:40:50.033168-07:00"
+    created: "2020-03-27T16:19:46.871586-07:00"
     description: Apache Archiva is a build artifact repository, xetusoss/archiva is
       an easy-to-deploy Archiva container.
     digest: b613335320602b82b548ad94fcca1ebe068160afb6f79df54da06f4061e4849f
@@ -54,7 +54,7 @@ entries:
     version: 0.1.3
   - apiVersion: v1
     appVersion: 2.2.3
-    created: "2020-03-27T15:40:50.032032-07:00"
+    created: "2020-03-27T16:19:46.870729-07:00"
     description: Apache Archiva is a build artifact repository, xetusoss/archiva is
       an easy-to-deploy Archiva container.
     digest: 88c4bbc816a316e86e25ef85007cf2edc775f97c0ff231e4d727f05e85b8be11
@@ -71,7 +71,7 @@ entries:
     version: 0.1.2
   - apiVersion: v1
     appVersion: 2.2.3
-    created: "2020-03-27T15:40:50.030582-07:00"
+    created: "2020-03-27T16:19:46.869812-07:00"
     description: Apache Archiva is a build artifact repository, xetusoss/archiva is
       an easy-to-deploy Archiva container.
     digest: e3dd1be70da2c8e027674bd8e1d59a45dfc76f33f6c6b1e46d51de0f6b89742a
@@ -88,7 +88,7 @@ entries:
     version: 0.1.1
   - apiVersion: v1
     appVersion: 2.2.3
-    created: "2020-03-27T15:40:50.029728-07:00"
+    created: "2020-03-27T16:19:46.869012-07:00"
     description: Apache Archiva is a build artifact repository, xetusoss/archiva is
       an easy-to-deploy Archiva container.
     digest: 2b3bee9842a69f18a5498a4c15d27c54d9d46b194d8b624e4a44d8c255fa1f93
@@ -103,4 +103,4 @@ entries:
     urls:
     - https://xetus-oss.github.com/helm-charts/xetusoss-archiva-0.1.0.tgz
     version: 0.1.0
-generated: "2020-03-27T15:40:50.027608-07:00"
+generated: "2020-03-27T16:19:46.867912-07:00"
