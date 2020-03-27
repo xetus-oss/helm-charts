@@ -3,11 +3,11 @@
 Notable changes in the xetusoss-archiva chart
 
 ### v0.1.5
-Stability improvements to avoid the Archiva pod being restarted due exceeding it's resource constraints.
 
-* The new default image tag is `xetusoss/archiva:v2.2.4-1`. The new image version sets the `XX:+UseContainerSupport` flag so `cgroups` are respected. Previously, this would need to be manually set using `archiva.jvmExtraOpts`. 
-* Renamed `resourceConf.jvmMaxMemory` to `resourceConf.memory` and adjusted the default to `512`. Backwards compatibility with the `resourceConf.jvmMaxMemory` will be supported until `v0.2.0`.
-* The `JVM_MAX_MEMORY` environment variable is no longer set in Archiva container, since support for this has been dropped in the base image. If earlier versions of the `xetusoss/archiva` image are used, the `JVM_MAX_MEMORY` variable will not be set and the default will be used. 
+* Added better support for `v2` images after the [`archiva:v2.2.4-1`](https://github.com/xetus-oss/docker-archiva#v224-1) changes. The new image version sets the `XX:+UseContainerSupport` flag so `cgroups` are respected.
+  * Renamed `resourceConf.jvmMaxMemory` to `resourceConf.memory` and adjusted the default to `512`. Backwards compatibility with the `resourceConf.jvmMaxMemory` will be supported until chart version `v0.2.0`.
+  * The `JVM_MAX_MEMORY` environment variable is no longer set in Archiva container since support for this has been dropped. __WARNING:__ If an earlier version tag of the `xetusoss/archiva` image is manually specified, the `JVM_MAX_MEMORY` variable will not be set and the image's default settings will be used.
+* Added support for customizing the MySQL image used when `userdb.type=mysql` (see [pull request #7](https://github.com/xetus-oss/helm-charts/pull/7)). However, please note that using MySQL is not recommended for new deployments!
 
 ### v0.1.4
 * Added support for Kubernetes `v1.16+` and removed support for versions before `v1.9` (see [pull request #4](https://github.com/xetus-oss/helm-charts/pull/4)).
