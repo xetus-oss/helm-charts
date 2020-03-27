@@ -31,7 +31,7 @@ spec:
               name: archiva-data
         {{- if eq .Values.userDb.type "mysql" }}
         - name: init-db-available
-          image: mysql:8
+          image: {{ .Values.userDb.image }}
           env:
             - name: DB_USER
               value: {{ .Values.userDb.user }}

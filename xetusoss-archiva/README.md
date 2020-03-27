@@ -32,6 +32,7 @@ __Current Version__: `v0.1.4`
 | `userDb.host`                   | User database host, needed when `userdb.type=mysql`                                                              | `nil`              |
 | `userDb.port`                   | User database port, needed when `userdb.type=mysql`                                                              | `3306`             |
 | `userDb.name`                   | User database name, needed when `userdb.type=mysql`                                                              | `archiva`          |
+| `userDb.image`                   | User database image, needed when `userdb.type=mysql`                                                              | `mysql:8`          |
 | `resourceConf.jvmMaxMem`        | JVM memory for Archiva, in megabytes. The `limit` and `request` `memory` will be set to `jvmMaxMem` + 50         | `768`              |
 | `resourceConf.cpuLimit`         | CPU limit for Archiva                                                                                            | `2`                |
 | `resourceConf.cpuRequest`       | CPU request for Archiva                                                                                          | `500m`             |

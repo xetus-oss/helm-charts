@@ -29,6 +29,7 @@ userDb:
   host:
   port: 3306
   name: archiva
+  image: "mysql:8"
 
 #
 # Resource Configuration
