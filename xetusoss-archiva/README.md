@@ -1,6 +1,6 @@
 # xetusoss/archiva Helm Chart
 
-The offical Kubernetes chart for [xetusoss/archiva](https://github.com/xetus-oss/docker-archiva).
+The official Kubernetes chart for [xetusoss/archiva](https://github.com/xetus-oss/docker-archiva).
 
 __Current Version__: `v0.1.5`
 
@@ -45,7 +45,7 @@ __Tested Against__: `1.14+`
 | `ingress.tls.enabled`           | Enable tls support within the ingress resource                                                                   | `false`            |
 | `ingress.tls.secret`            | The secret which contains the TLS keypair for the ingress. Required when `ingress.tls.enable` = `true`           | `nil`              |
 | `persistence.enabled`           | Enable persistent storage                                                                                        | `true`             |
-| `persistence.existingClaim`     | Specify an existing claim for a `PersitentVolume`                                                                | `nil`              |
+| `persistence.existingClaim`     | Specify an existing claim for a `PersistentVolume`                                                                | `nil`              |
 | `persistence.storageClass`      | `StorageClass` type for the `PersistentVolume`. Ignored if `persistence.existingClaim` exists                    | `nil`              |
 | `persistence.requestSize`       | The `PersistentVolume` request size. Ignored if `persistence.existingClaim` exists                               | `20Gi`             |
 | `tolerations`                   | `tolerations` for the xetusoss/archiva `Pod`                                                                     | `nil`              |
