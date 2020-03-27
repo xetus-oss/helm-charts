@@ -20,8 +20,8 @@ Notable changes in the xetusoss-archiva chart
 * Renamed `ingress.tls.secretName` to `ingress.tls.secret`. Backwards compatibility for the previous key name will remain until version `v0.2.0`.
 * Renamed the `advanced` key to `archiva`. Backwards compatibility for the previous key name will remain until version `v0.2.0`.
 * An empty directory volume is now created on the node when `persistence.enabled = false`.
-* PVC's created by this chart are now retained after the release is deleted using `"helm.sh/resource-policy": keep`. This was to prepare for moving to a `StatfulSet` later, and a message about the behavior was added the NOTE.txt.
-* Fixed several minor typo's in the README and a formating issue with the `xetusoss-archiva.proxyBaseUrl` used in the release NOTES.txt.
+* PVC's created by this chart are now retained after the release is deleted using `"helm.sh/resource-policy": keep`. This was to prepare for moving to a `StatefulSet` later, and a message about the behavior was added to the NOTE.txt.
+* Fixed several minor typos in the README and a format issue with the `xetusoss-archiva.proxyBaseUrl` used in the release NOTES.txt.
 
 ### v0.1.2
 * Changed the ingress resource definition to support cert-manager & lets-encrypt. See [issue #1](https://github.com/xetus-oss/helm-charts/issues/1).
