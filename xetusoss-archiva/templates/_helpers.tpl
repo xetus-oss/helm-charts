@@ -50,7 +50,7 @@ Keep in place until v0.2.0 for backwards compatibility.
 {{- end -}}
 
 {{/*
-Computes the max memory for the container from depreciated
+Computes the max memory for the container from deprecated
 .Values.resourceConf.jvmMaxMem value, if specified
 
 Keep in place until v0.2.0 for backwards compatibility.
@@ -78,4 +78,3 @@ networking.k8s.io/v1beta1
 extensions/v1beta1
 {{- end -}}
 {{- end -}}
-
