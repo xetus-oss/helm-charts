@@ -29,12 +29,17 @@ userDb:
   host:
   port: 3306
   name: archiva
+  image: "mysql:8"
 
 #
 # Resource Configuration
 #
 resourceConf:
-  jvmMaxMem: 768
+  mallocMaxArena: 2
+  #
+  # This is used for both the memory request and limit
+  #
+  memory: 512
   cpuLimit: 2
   cpuRequest: 200m
 
@@ -72,7 +77,6 @@ persistence:
   # from a storageprovider
   storageClass:
   requestSize: 20Gi
-
 
 #
 # (OPTIONAL) tolerations

@@ -31,7 +31,7 @@ spec:
               name: archiva-data
         {{- if eq .Values.userDb.type "mysql" }}
         - name: init-db-available
-          image: mysql:8
+          image: {{ .Values.userDb.image }}
           env:
             - name: DB_USER
               value: {{ .Values.userDb.user }}
@@ -59,6 +59,8 @@ spec:
             - name: http
               containerPort: 8080
           env:
+            - name: MALLOC_ARENA_MAX
+              value: {{ .Values.resourceConf.mallocMaxArena | quote }}
             - name: SMTP_HOST
               value: {{ default "" .Values.smtp.host }}
             - name: SMTP_PORT
@@ -84,8 +86,6 @@ spec:
             - name: DB_NAME
               value: {{ .Values.userDb.name }}
             {{- end }}
-            - name: JVM_MAX_MEM
-              value: {{ .Values.resourceConf.jvmMaxMem | quote }}
             {{ $advanced := default (dict) .Values.advanced  }}
             {{- if default $advanced.jvmExtraOpts .Values.archiva.jvmExtraOpts  }}
             - name: JVM_EXTRA_OPTS
@@ -114,10 +114,10 @@ spec:
           resources:
             limits:
               cpu: {{ .Values.resourceConf.cpuLimit }}
-              memory: {{ add .Values.resourceConf.jvmMaxMem 50 }}Mi
+              memory: {{ include "xetusoss-archiva.memory" . }}Mi
             requests:
               cpu: {{ .Values.resourceConf.cpuRequest }}
-              memory: {{ add .Values.resourceConf.jvmMaxMem 50 }}Mi 
+              memory: {{ include "xetusoss-archiva.memory" . }}Mi
 
       {{- if .Values.tolerations }}
       tolerations:

@@ -1,14 +1,15 @@
 # xetusoss/archiva Helm Chart
 
-This directory contains the offical Kubernetes chart to deploy [xetusoss/archiva](https://github.com/xetus-oss/docker-archiva) into Kubernetes
+The official Kubernetes chart for [xetusoss/archiva](https://github.com/xetus-oss/docker-archiva).
 
-__Current Version__: `v0.1.4` 
+__Current Version__: `v0.1.5`
+
+__Tested Against__: `1.14+`
 
 > See the [Change Log](CHANGELOG.md) if upgrading
 
 ## Prerequisites
 
-* A Kubernetes cluster `1.9+` (Tested with `1.13+`)
 * PV support in the Kuberentes cluster (if persistence is used)
 * Ingress support in the Kuberentes cluster (if ingress is used)
 
@@ -26,13 +27,14 @@ __Current Version__: `v0.1.4`
 | `proxy.proto`                   | The protocol used on the proxy, either `http` or `https`.                                                        | `https`            |
 | `proxy.pathPrefix`              | Path prefix configured on the proxy's frontend (e.g. `/archiva`)                                                 | `nil`              |
 | `proxy.customPort`              | Custom http or https port used on the proxy frontend                                                             | `nil`              |
-| `userDb.type`                   | User database type, either `derby` or `mysql`                                                                    | `derby`            |
+| `userDb.type`                   | User database type, either `derby` or `mysql`. `mysql` is not recommended for new deployments.                   | `derby`            |
 | `userDb.user`                   | User database user, needed when `userdb.type=mysql`                                                              | `archiva`          |
 | `userDb.password`               | User database password, needed when `userdb.type=mysql`                                                          | `nil`              |
 | `userDb.host`                   | User database host, needed when `userdb.type=mysql`                                                              | `nil`              |
 | `userDb.port`                   | User database port, needed when `userdb.type=mysql`                                                              | `3306`             |
 | `userDb.name`                   | User database name, needed when `userdb.type=mysql`                                                              | `archiva`          |
-| `resourceConf.jvmMaxMem`        | JVM memory for Archiva, in megabytes. The `limit` and `request` `memory` will be set to `jvmMaxMem` + 50         | `768`              |
+| `userDb.image`                  | User database image, needed when `userdb.type=mysql`                                                             | `mysql:8`          |
+| `resourceConf.memory   `        | Memory, in megabytes, allocated to the archiva pod                                                               | `512`              |
 | `resourceConf.cpuLimit`         | CPU limit for Archiva                                                                                            | `2`                |
 | `resourceConf.cpuRequest`       | CPU request for Archiva                                                                                          | `500m`             |
 | `archiva.jvmExtraOpts`          | Extra jvm arguments for Archiva                                                                                  | `[]`               |
@@ -43,7 +45,7 @@ __Current Version__: `v0.1.4`
 | `ingress.tls.enabled`           | Enable tls support within the ingress resource                                                                   | `false`            |
 | `ingress.tls.secret`            | The secret which contains the TLS keypair for the ingress. Required when `ingress.tls.enable` = `true`           | `nil`              |
 | `persistence.enabled`           | Enable persistent storage                                                                                        | `true`             |
-| `persistence.existingClaim`     | Specify an existing claim for a `PersitentVolume`                                                                | `nil`              |
+| `persistence.existingClaim`     | Specify an existing claim for a `PersistentVolume`                                                                | `nil`              |
 | `persistence.storageClass`      | `StorageClass` type for the `PersistentVolume`. Ignored if `persistence.existingClaim` exists                    | `nil`              |
 | `persistence.requestSize`       | The `PersistentVolume` request size. Ignored if `persistence.existingClaim` exists                               | `20Gi`             |
 | `tolerations`                   | `tolerations` for the xetusoss/archiva `Pod`                                                                     | `nil`              |
@@ -61,5 +63,4 @@ helm install --set service.type=NodePort\
     --namespace archiva-test\
     --name archiva\
     xetusoss/xetusoss-archiva
-
 ```
