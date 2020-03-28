@@ -2,7 +2,7 @@
 
 The official Kubernetes chart for [xetusoss/archiva](https://github.com/xetus-oss/docker-archiva).
 
-__Current Version__: `v0.1.5`
+__Current Version__: `0.1.5`
 
 __Tested Against__: `1.14+`
 
