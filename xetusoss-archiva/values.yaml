@@ -87,3 +87,8 @@ persistence:
 # (OPTIONAL) nodeSelector
 # 
 #nodeSelector:
+
+#
+# (OPTIONAL) priorityClassName
+#
+#priorityClassName:
