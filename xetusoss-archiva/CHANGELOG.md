@@ -4,7 +4,7 @@ Notable changes in the xetusoss-archiva chart
 
 ### v0.1.6
 
-* Added support for specifying a `PriorityClassName` on the archiva pod. See [pull request #8](https://github.com/xetus-oss/helm-charts/pull/8).
+* Added support for specifying a `PriorityClassName` on the archiva pod. See [pull request #9](https://github.com/xetus-oss/helm-charts/pull/9).
 
 ### v0.1.5
 
