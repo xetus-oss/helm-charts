@@ -2,6 +2,10 @@
 ---
 Notable changes in the xetusoss-archiva chart
 
+### v0.1.6
+
+* Added support for specifying a `PriorityClassName` on the archiva pod. See [pull request #8](https://github.com/xetus-oss/helm-charts/pull/8).
+
 ### v0.1.5
 
 * Added better support for `v2` images after the [`archiva:v2.2.4-1`](https://github.com/xetus-oss/docker-archiva#v224-1) changes. The new image version sets the `XX:+UseContainerSupport` flag so `cgroups` are respected.
