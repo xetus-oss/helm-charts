@@ -2,7 +2,7 @@
 
 The official Kubernetes chart for [xetusoss/archiva](https://github.com/xetus-oss/docker-archiva).
 
-__Current Version__: `0.1.5`
+__Current Version__: `0.1.6`
 
 __Tested Against__: `1.14+`
 
@@ -45,11 +45,12 @@ __Tested Against__: `1.14+`
 | `ingress.tls.enabled`           | Enable tls support within the ingress resource                                                                   | `false`            |
 | `ingress.tls.secret`            | The secret which contains the TLS keypair for the ingress. Required when `ingress.tls.enable` = `true`           | `nil`              |
 | `persistence.enabled`           | Enable persistent storage                                                                                        | `true`             |
-| `persistence.existingClaim`     | Specify an existing claim for a `PersistentVolume`                                                                | `nil`              |
+| `persistence.existingClaim`     | Specify an existing claim for a `PersistentVolume`                                                               | `nil`              |
 | `persistence.storageClass`      | `StorageClass` type for the `PersistentVolume`. Ignored if `persistence.existingClaim` exists                    | `nil`              |
 | `persistence.requestSize`       | The `PersistentVolume` request size. Ignored if `persistence.existingClaim` exists                               | `20Gi`             |
 | `tolerations`                   | `tolerations` for the xetusoss/archiva `Pod`                                                                     | `nil`              |
 | `nodeSelector`                  | `nodeSelector` for the xetusoss/archiva `Pod`                                                                    | `nil`              |
+| `priorityClassName`             | `priorityClassName` for the xetusoss/archiva `Pod`                                                               | `nil`              |
 
 
 To setup a quick release for testing, without persistent volume support.

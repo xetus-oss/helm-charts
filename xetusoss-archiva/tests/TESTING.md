@@ -95,8 +95,24 @@ Tests that releases which specify the `archiva.caCertsSecret` deploy correctly.
 make deploy-casecret-test
 
 # Check the release status using
-heml status casecret-test
+helm status casecret-test
 
 # Clean up the test release
 make clean-casecret-test
+```
+
+## PriorityClass Test
+
+Tests that the priortiy class feature works as expected.
+
+```
+# Deploy the test release
+make deploy-priorityclass-test
+
+# Check the release status using
+helm status priorityclass-test
+
+# Clean up the test release
+make clean-priorityclass-test
+
 ```

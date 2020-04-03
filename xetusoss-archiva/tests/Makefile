@@ -158,3 +158,23 @@ clean-casecret-test:
 	-kubectl delete --namespace $(TEST_NAMESPACE)\
 		secrets/archiva-test-cacerts
 	-kubectl delete namespace $(TEST_NAMESPACE)
+
+
+deploy-priorityclass-test:
+	kubectl create namespace $(TEST_NAMESPACE)
+	kubectl apply \
+		-f resources/archiva-test-priority-class.yaml
+
+	helm install \
+		--namespace $(TEST_NAMESPACE)\
+		--name priorityclass-test\
+		-f priorityclass-values.yaml\
+		$(IMAGE_ARGS)\
+		../
+
+clean-priorityclass-test:
+	-helm delete --purge priorityclass-test
+	-kubectl delete\
+		-f resources/archiva-test-priority-class.yaml
+	-kubectl delete namespace $(TEST_NAMESPACE)
+

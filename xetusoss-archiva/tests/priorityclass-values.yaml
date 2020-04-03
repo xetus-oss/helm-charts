@@ -1,0 +1,7 @@
+service:
+  type: NodePort
+
+persistence:
+  enabled: false
+
+priorityClassName: archiva-test-priority-class
