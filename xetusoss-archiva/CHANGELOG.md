@@ -2,6 +2,10 @@
 ---
 Notable changes in the xetusoss-archiva chart
 
+### v0.1.7
+
+* Fixed the update strategy. Prior to this fix, Archiva pods had to be manually killed each time the chart was updated. See [pull request #11](https://github.com/xetus-oss/helm-charts/pull/11).
+
 ### v0.1.6
 
 * Added support for specifying a `PriorityClassName` on the archiva pod. See [pull request #9](https://github.com/xetus-oss/helm-charts/pull/9).
