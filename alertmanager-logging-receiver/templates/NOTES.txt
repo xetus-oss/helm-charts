@@ -1,0 +1,5 @@
+
+alertmanager-logging-receiver should now be available within the cluster at:
+
+ http://{{ template "amlReceiver.fullname" . }}/webhook
+

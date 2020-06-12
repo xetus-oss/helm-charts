@@ -1,0 +1,15 @@
+apiVersion: v1
+name: alertmanager-logging-receiver
+home: https://github.com/xetus-oss/helm-charts/alertmanager-logging-receiver
+version: 0.1.0
+appVersion: 0.1.1
+description: A chart to deploy an alertmanager-logging-receiver to a cluster
+keywords:
+  - alertmanager
+  - prometheus
+  - log
+  - webhook
+  - receiver
+  - xetusoss
+sources:
+  - https://github.com/xetus-oss/alertmanager-logging-receiver
