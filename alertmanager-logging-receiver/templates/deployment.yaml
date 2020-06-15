@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "amlReceiver.fullname" . }}
+  labels:
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app: {{ template "amlReceiver.name" . }}
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      app: {{ template "amlReceiver.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "amlReceiver.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      {{ if .Values.priorityClassName -}}
+      priorityClassName: {{ .Values.priorityClassName }}
+      {{ end -}}
+      containers:
+        - name: {{ template "amlReceiver.fullname" . }}
+          image: {{ .Values.image.repo }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 0
+            periodSeconds: 1
+            failureThreshold: 5
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 0
+            periodSeconds: 1
+            failureThreshold: 5
+          resources:
+            {{- "\n" }}{{ toYaml .Values.resources | nindent 12 }}
+
+      {{- if .Values.tolerations }}
+      tolerations:
+        {{- "\n" }}{{ toYaml .Values.tolerations | nindent 8 }}
+      {{- end }}
+
+      {{ if .Values.nodeSelector }}
+      nodeSelector:
+        {{- "\n" }}{{ toYaml .Values.nodeSelector | nindent 8 }}
+      {{- end }}

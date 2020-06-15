@@ -1,0 +1,39 @@
+# nameOverride: my-receiver-name
+replicas: 1
+
+#
+# Image configuration
+#
+image:
+  repo: xetusoss/alertmanager-logging-receiver
+  tag: latest
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+
+#
+# Resource configurations
+#
+resources:
+  requests:
+    cpu: 10m
+    memory: 10Mi
+  limits:
+    cpu: 10m
+    memory: 10Mi
+
+#
+# (OPTIONAL) tolerations
+#
+tolerations: []
+
+#
+# (OPTIONAL) nodeSelector
+#
+nodeSelector: {}
+
+#
+# (OPTIONAL) priorityClassName
+#
+# priorityClassName:
