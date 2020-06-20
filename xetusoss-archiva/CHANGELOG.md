@@ -2,6 +2,10 @@
 ---
 Notable changes in the xetusoss-archiva chart
 
+### v0.1.8
+
+* Fixed the `appVersion` field to simply state `v2` rather than a full semver. We don't actually pin the chart to specific release of Archiva.
+
 ### v0.1.7
 
 * Fixed the update strategy. Prior to this fix, Archiva pods had to be manually killed each time the chart was updated. See [pull request #11](https://github.com/xetus-oss/helm-charts/pull/11).
