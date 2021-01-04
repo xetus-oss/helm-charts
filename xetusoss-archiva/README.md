@@ -59,9 +59,8 @@ To setup a quick release for testing, without persistent volume support.
 2. Run the following command.
 
 ```
-helm install --set service.type=NodePort\
+helm install -n archiva-test --set service.type=NodePort\
     --set persistence.enabled=false\
-    --namespace archiva-test\
-    --name archiva\
+    archiva\
     xetusoss/xetusoss-archiva
 ```
