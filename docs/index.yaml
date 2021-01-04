@@ -21,6 +21,24 @@ entries:
     - https://xetus-oss.github.com/helm-charts/alertmanager-logging-receiver-0.1.0.tgz
     version: 0.1.0
   xetusoss-archiva:
+  - apiVersion: v2
+    appVersion: v2
+    created: "2021-01-03T18:22:08.026391-08:00"
+    description: Apache Archiva is a build artifact repository, xetusoss/archiva is
+      an easy-to-deploy Archiva container.
+    digest: 69920f530791b5b516f8292de876ce11446c36e73c48f72b84fde1f5ac1accb9
+    home: https://github.com/xetus-oss/docker-archiva/
+    keywords:
+    - archiva
+    - xetusoss
+    name: xetusoss-archiva
+    sources:
+    - https://github.com/apache/archiva
+    - https://github.com/xetus-oss/docker-archiva/
+    type: application
+    urls:
+    - https://xetus-oss.github.com/helm-charts/xetusoss-archiva-0.2.0.tgz
+    version: 0.2.0
   - apiVersion: v1
     appVersion: v2
     created: "2020-06-19T20:36:48.033477-07:00"

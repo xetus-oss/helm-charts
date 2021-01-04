@@ -17,7 +17,7 @@ An easy smoke test. Just deploy a release and ensure the archiva pod becomes rea
 make deploy-basic-test
 
 # Check the release status using
-helm status basic-test
+helm -n test status basic-test
 
 # Clean up the test release
 make clean-basic-test
@@ -32,7 +32,7 @@ Tests the proxy and ingress configuration together to ensure they work all the w
 make deploy-ingress-test
 
 # Check the release status using
-helm status ingress-test
+helm -n test status ingress-test
 
 # Issue the following command, replacing CLUSTER_INGRESS_HTTPS_FROTNEND with the right host or ip.
 curl -k -H'Host: archiva.test' CLUSTER_INGRESS_HTTPS_FROTNEND
@@ -50,7 +50,7 @@ Tests that the `userdb` configuration works with `userdb.type=mysql`.
 make deploy-mysql-test
 
 # Check the release status using
-helm status mysql-test
+helm -n test status mysql-test
 
 # Clean up the test release
 make clean-mysql-test
@@ -65,7 +65,7 @@ Tests that an existing PVC can be used, when configured.
 make deploy-existing-pvc-test
 
 # Check the release status using
-helm status existing-pvc-test
+helm -n test status existing-pvc-test
 
 # Clean up the test release
 make clean-existing-pvc-test
@@ -80,7 +80,7 @@ Tests that an existing PVC can be used, when configured.
 make deploy-provisoner-pv-test
 
 # Check the release status using
-helm status provisoner-pv-test
+helm -n test status provisoner-pv-test
 
 # Clean up the test release
 make clean-provisoner-pv-test
@@ -95,7 +95,7 @@ Tests that releases which specify the `archiva.caCertsSecret` deploy correctly.
 make deploy-casecret-test
 
 # Check the release status using
-helm status casecret-test
+helm -n test status casecret-test
 
 # Clean up the test release
 make clean-casecret-test
@@ -110,7 +110,7 @@ Tests that the priortiy class feature works as expected.
 make deploy-priorityclass-test
 
 # Check the release status using
-helm status priorityclass-test
+helm -n test status priorityclass-test
 
 # Clean up the test release
 make clean-priorityclass-test

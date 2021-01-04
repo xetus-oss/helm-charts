@@ -17,7 +17,7 @@ build-releases: lint
 
 lint:
 	@echo "** Linting xetusoss-archiva **\n"
-	cd xetusoss-archiva/tests &&	make lint
+	cd xetusoss-archiva/tests && make lint
 
 	@echo "\n\n** Linting alertmanager-logging-receiver **\n"
-	cd alertmanager-logging-receiver/tests &&	make lint
+	cd alertmanager-logging-receiver/tests && make lint

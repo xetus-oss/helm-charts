@@ -2,6 +2,11 @@
 ---
 Notable changes in the xetusoss-archiva chart
 
+### v0.2.0
+
+* Updated to support the v2 API in helm v3.
+* Added support for the new `networking.k8s.io/v1` Ingress API version in Kubernetes `v1.19+`
+
 ### v0.1.8
 
 * Fixed the `appVersion` field to simply state `v2` rather than a full semver. We don't actually pin the chart to specific release of Archiva.

@@ -72,9 +72,13 @@ extensions/v1beta1 will stop working.
 https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.14.md#no-really-you-must-read-this-before-you-upgrade
 */}}
 {{- define "xetusoss-archiva.ingressApiVersion" -}}
-{{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
+{{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion -}}
+networking.k8s.io/v1
+{{- end -}}
+{{- if and (semverCompare "<1.19-0" .Capabilities.KubeVersion.GitVersion) (semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion) -}}
 networking.k8s.io/v1beta1
-{{- else -}}
+{{- end -}}
+{{- if semverCompare "<1.14-0" .Capabilities.KubeVersion.GitVersion -}}
 extensions/v1beta1
 {{- end -}}
 {{- end -}}

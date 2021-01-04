@@ -5,7 +5,6 @@ proxy:
   enabled: true
   proto: https
   hostname: archiva.test
-  customPort: 2443
 
 ingress:
   enabled: true

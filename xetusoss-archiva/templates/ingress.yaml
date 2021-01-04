@@ -17,10 +17,22 @@ spec:
   - host: {{ .Values.proxy.hostname }}
     http:
       paths:
-        - path: {{ default "" .Values.proxy.pathPrefix }}
+        - {{ if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion -}}
+          path: {{ default "/" .Values.proxy.pathPrefix }}
+          pathType: Prefix
+          {{- else -}}
+          path: {{ default "" .Values.proxy.pathPrefix }}
+          {{- end }}
           backend:
+            {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion }}
+            service:
+              name: {{ include "xetusoss-archiva.fullname" . }}
+              port: 
+                name: http
+            {{- else }}
             serviceName: {{ include "xetusoss-archiva.fullname" . }}
             servicePort: http
+            {{- end }}
   {{- if .Values.ingress.tls.enabled }}
   tls:
     - secretName: {{ template "xetusoss-archiva.tlsSecret" . }}

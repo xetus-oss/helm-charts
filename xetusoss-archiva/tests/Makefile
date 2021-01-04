@@ -46,23 +46,23 @@ deploy-basic-test:
 	kubectl create namespace $(TEST_NAMESPACE)
 	helm install \
 		--namespace $(TEST_NAMESPACE)\
-		--name basic-test\
 		-f basic-values.yaml\
 		$(IMAGE_ARGS)\
+		basic-test\
 		../
 
 clean-basic-test:
-	-helm delete --purge basic-test
+	-helm uninstall --namespace=$(TEST_NAMESPACE) basic-test
 	-kubectl delete namespace $(TEST_NAMESPACE)
 
 test-ingress-values:
 	helm install \
 		--namespace $(TEST_NAMESPACE)\
-		--name ingress-test\
 		--dry-run \
 		--debug \
 		-f ingress-values.yaml\
 		$(IMAGE_ARGS)\
+		ingress-test\
 		../
 
 deploy-ingress-test:
@@ -73,36 +73,37 @@ deploy-ingress-test:
 
 	helm install \
 		--namespace $(TEST_NAMESPACE)\
-		--name ingress-test\
 		-f ingress-values.yaml\
 		$(IMAGE_ARGS)\
+		ingress-test\
 		../
 
 clean-ingress-test:
 	-kubectl delete secret/archiva-test-tls-secret --namespace $(TEST_NAMESPACE)
-	-helm delete --purge ingress-test
+	-helm uninstall --namespace $(TEST_NAMESPACE) ingress-test
 	-kubectl delete namespace $(TEST_NAMESPACE)
+
 
 deploy-mysql-test:
 	kubectl create namespace $(TEST_NAMESPACE)
 	helm repo update
 	helm install \
 		--namespace $(TEST_NAMESPACE)\
-		--set mysqlUser=archiva \
-		--set mysqlPassword=archiva \
-		--set mysqlDatabase=archiva \
-		--name archiva-db stable/mysql
+		--set auth.username=archiva \
+		--set auth.password=archiva \
+		--set auth.database=archiva \
+		archiva-db bitnami/mysql
 
 	helm install \
 		--namespace $(TEST_NAMESPACE)\
-		--name mysql-test\
 		-f mysql-values.yaml\
 		$(IMAGE_ARGS)\
+		mysql-test\
 		../
 
 clean-mysql-test:
-	-helm delete --purge mysql-test
-	-helm delete --purge archiva-db
+	-helm uninstall --namespace $(TEST_NAMESPACE) mysql-test
+	-helm uninstall --namespace $(TEST_NAMESPACE) archiva-db
 	-kubectl delete namespace $(TEST_NAMESPACE)
 
 deploy-existing-pvc-test:
@@ -113,13 +114,13 @@ deploy-existing-pvc-test:
 
 	helm install \
 		--namespace $(TEST_NAMESPACE)\
-		--name existing-pvc-test\
 		-f existing-pvc-values.yaml\
 		$(IMAGE_ARGS)\
+		existing-pvc-test\
 		../
 
 clean-existing-pvc-test:
-	-helm delete --purge existing-pvc-test
+	-helm uninstall --namespace $(TEST_NAMESPACE) existing-pvc-test
 	-kubectl -n $(TEST_NAMESPACE) delete pvc/archiva-pv-claim
 	-kubectl delete pv/archiva-pv
 	-kubectl delete namespace $(TEST_NAMESPACE)
@@ -132,13 +133,13 @@ deploy-provisoner-pv-test:
 
 	helm install \
 		--namespace $(TEST_NAMESPACE)\
-		--name provisoner-pv-test\
 		-f provisoner-pv-values.yaml\
 		$(IMAGE_ARGS)\
+		provisoner-pv-test\
 		../
 
 clean-provisoner-pv-test:
-	-helm delete --purge provisoner-pv-test
+	-helm uninstall --namespace $(TEST_NAMESPACE) provisoner-pv-test
 	-kubectl delete namespace $(TEST_NAMESPACE)
 
 deploy-casecret-test:
@@ -148,13 +149,13 @@ deploy-casecret-test:
 
 	helm install \
 		--namespace $(TEST_NAMESPACE)\
-		--name casecret-test\
 		-f casecret-values.yaml\
 		$(IMAGE_ARGS)\
+		casecret-test\
 		../
 
 clean-casecret-test:
-	-helm delete --purge casecret-test
+	-helm uninstall --namespace $(TEST_NAMESPACE) casecret-test
 	-kubectl delete --namespace $(TEST_NAMESPACE)\
 		secrets/archiva-test-cacerts
 	-kubectl delete namespace $(TEST_NAMESPACE)
@@ -167,13 +168,13 @@ deploy-priorityclass-test:
 
 	helm install \
 		--namespace $(TEST_NAMESPACE)\
-		--name priorityclass-test\
 		-f priorityclass-values.yaml\
 		$(IMAGE_ARGS)\
+		priorityclass-test\
 		../
 
 clean-priorityclass-test:
-	-helm delete --purge priorityclass-test
+	-helm uninstall --namespace $(TEST_NAMESPACE) priorityclass-test
 	-kubectl delete\
 		-f resources/archiva-test-priority-class.yaml
 	-kubectl delete namespace $(TEST_NAMESPACE)
