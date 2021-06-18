@@ -1,7 +1,7 @@
 #
 # A simple makefile that build releases and updates the included yaml file
 #
-REPO_URL := https://xetus-oss.github.com/helm-charts
+REPO_URL := https://xetus-oss.github.io/helm-charts
 
 build-releases: lint
 	@echo "Packaging xetusoss-archiva"
